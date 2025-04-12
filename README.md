@@ -78,5 +78,3 @@ npx react-native run-android # for Android
 [GitHub](https://github.com/Samson8)
 
 ---
-
-Let me know if you'd like a badge section, CI setup note, or light/dark theme toggle mentioned too!
