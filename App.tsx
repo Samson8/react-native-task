@@ -1,11 +1,11 @@
 import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import NavContainer from './src/navigation/navContainer';
+import Navigation from './src/navigation';
 
 const App = () => {
   return (
     <SafeAreaProvider>
-      <NavContainer />
+      <Navigation />
     </SafeAreaProvider>
   );
 };
