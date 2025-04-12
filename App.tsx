@@ -1,11 +1,14 @@
 import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Navigation from './src/navigation';
+import {FavoritesProvider} from './src/context/favoritesContext';
 
 const App = () => {
   return (
     <SafeAreaProvider>
-      <Navigation />
+      <FavoritesProvider>
+        <Navigation />
+      </FavoritesProvider>
     </SafeAreaProvider>
   );
 };
