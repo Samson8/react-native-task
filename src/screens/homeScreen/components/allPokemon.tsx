@@ -4,12 +4,16 @@ import {getPokemonList} from '../../../api';
 import {PokemonItem} from '../../../utils/entities/pokemonItem';
 import FlashListComponent from '../../../components/flashlistComponent';
 import Toast from 'react-native-toast-message';
+import SearchBar from '../../../components/searchBar';
 
 const URL = 'https://pokeapi.co/api/v2/pokemon?limit=20';
 const AllPokemon = () => {
   const [pokemonList, setPokemonList] = useState<PokemonItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [nextUrl, setNextUrl] = useState<string | undefined>(undefined);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [filteredPokemonList, setFilteredPokemonList] =
+    useState<PokemonItem[]>(pokemonList);
 
   const fetchPokemonList = async (url: string) => {
     try {
@@ -28,6 +32,21 @@ const AllPokemon = () => {
     }
   };
 
+  // Filter the pokemon list based on the search query
+  useEffect(() => {
+    if (searchQuery) {
+      const filteredList = pokemonList.filter(pokemon =>
+        pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
+      setFilteredPokemonList(filteredList);
+    } else {
+      setFilteredPokemonList(pokemonList);
+    }
+  }, [searchQuery, pokemonList]);
+
+  // Handle loading more Pokemon when the user scrolls to the end of the list
+  // This function is called when the user scrolls to the end of the list
+
   const handleLoadMore = () => {
     fetchPokemonList(nextUrl!);
   };
@@ -44,11 +63,14 @@ const AllPokemon = () => {
   // Render the list of Pokemon
   // using FlashList for better performance with large lists
   return (
-    <FlashListComponent
-      handleLoadMore={handleLoadMore}
-      loading={loading}
-      pokemonList={pokemonList}
-    />
+    <>
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <FlashListComponent
+        handleLoadMore={handleLoadMore}
+        loading={loading}
+        pokemonList={filteredPokemonList}
+      />
+    </>
   );
 };
 
