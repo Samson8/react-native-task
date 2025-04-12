@@ -1,5 +1,3 @@
-Absolutely! Here's a clean and professional `README.md` draft for your Pokémon React Native task project:
-
 ---
 
 # 📱 Pokémon Explorer
